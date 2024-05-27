@@ -12,3 +12,40 @@
 时间复杂度：希尔排序的时间复杂度依赖于增量序列的选择，最好的情况可以达到O(n log n)，但在最坏的情况下可能退化到O(n^2)。
 空间复杂度：希尔排序是原地排序算法，除了用于交换的少量临时变量外，不需要额外的存储空间，因此空间复杂度为O(1)。
 希尔排序由于其对初态基本有序的数组有很好的性能表现，以及不需要大量的额外内存空间，因此在某些应用场景下非常有效。然而，它的具体实现（比如增量序列的选择）对算法的性能有很大影响，且不像归并排序或快速排序那样有严格的最优时间复杂度界限。
+
+
+public class ShellSortExample {
+
+    public static void main(String[] args) {
+        int[] arr = {69, 56, 12, 136, 3, 55, 46, 99, 88, 25};
+        System.out.println("原始数组：");
+        printArray(arr);
+        
+        shellSort(arr);
+        
+        System.out.println("希尔排序后：");
+        printArray(arr);
+    }
+    
+    public static void shellSort(int[] array) {
+        int n = array.length;
+        for (int gap = n / 2; gap > 0; gap /= 2) {
+            for (int i = gap; i < n; i += 1) {
+                int temp = array[i];
+                int j;
+                for (j = i; j >= gap && array[j - gap] > temp; j -= gap) {
+                    array[j] = array[j - gap];
+                }
+                array[j] = temp;
+            }
+        }
+    }
+    
+    // 辅助方法用于打印数组
+    private static void printArray(int[] arr) {
+        for (int i : arr) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+    }
+}
